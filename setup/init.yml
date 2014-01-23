@@ -1,0 +1,24 @@
+---
+- hosts: prod
+  user: root
+  sudo: no
+  gather_facts: no
+
+  tasks:
+  - name: deb package list is up-to-date
+    command: apt-get update
+
+  - name: python-apt is installed
+    command: apt-get -y install python-apt
+
+  - name: pip is installed
+    command: apt-get -y install python-pip python-dev build-essential
+
+  - name: pip is up-to-date
+    command: pip install --upgrade pip
+
+  - name: virtualenv is installed
+    command: pip install --upgrade virtualenv
+
+  - name: python-keyczar is present; ansible accelerated mode can be enabled
+    command: pip install --pre python-keyczar

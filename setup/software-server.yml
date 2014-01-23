@@ -1,0 +1,21 @@
+---
+- hosts: prod
+  user: root
+  sudo: no
+  accelerate: true
+  gather_facts: no
+  vars:
+  - ssh_user: $ENV(USER)
+
+  tasks:
+  - name: #software | apache is stopped
+    service: name=apache2 state=stopped
+    tags: software
+
+  - name: #software | apache2 is not installed
+    apt: pkg=apache2 state=absent
+    tags: software
+
+  - name: #software | git is installed
+    apt: pkg=git state=present
+    tags: software

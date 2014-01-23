@@ -1,0 +1,35 @@
+---
+- hosts: prod
+  user: root
+  sudo: no
+  accelerate: true
+  gather_facts: no
+  vars:
+  - ssh_user: $ENV(USER)
+
+  tasks:
+  - name: #administration | There's an Admin system group
+    group: name=admins system=yes state=present
+    tags: administration
+
+  - name: #administration | The current ssh user is an admin account
+    user: name=$ssh_user state=present shell=/bin/bash groups=admins
+    tags: administration
+
+  - name: #administration | Current user is authorized to connect
+    authorized_key: user=arialdomartini key="{{ lookup('file', 'keys/arialdomartini_rsa.pub') }}"
+    tags: administration
+
+  - name: #administration | Install sudoers file for admin accounts
+    lineinfile: "dest=/etc/sudoers.d/admins state=present create=yes regexp='^%admins' line='%admins ALL=(ALL:ALL) NOPASSWD: SETENV: ALL' owner=root group=root mode=0440"
+    tags: administration
+
+
+
+  - name: #builderusers | The user "builder" exists
+    user: name=builder state=present shell=/bin/bash
+    tags: builderusers
+  
+  - name: #builderusers | arialdo is authorized to connect as builder
+    authorized_key: user=builder key="{{ lookup('file', 'keys/arialdomartini_rsa.pub') }}"
+    tags: builderusers
