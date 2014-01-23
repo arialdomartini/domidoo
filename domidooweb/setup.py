@@ -16,9 +16,9 @@ requires = [
     'waitress',
     ]
 
-setup(name='medmedweb',
+setup(name='domidooweb',
       version='0.0',
-      description='medmedweb',
+      description='domidooweb',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Programming Language :: Python",
@@ -33,12 +33,12 @@ setup(name='medmedweb',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
-      test_suite='medmedweb',
+      test_suite='domidooweb',
       install_requires=requires,
       entry_points="""\
       [paste.app_factory]
-      main = medmedweb:main
+      main = domidooweb:main
       [console_scripts]
-      initialize_medmedweb_db = medmedweb.scripts.initializedb:main
+      initialize_domidooweb_db = domidooweb.scripts.initializedb:main
       """,
       )

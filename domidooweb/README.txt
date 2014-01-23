@@ -1,4 +1,4 @@
-medmedweb README
+domidooweb README
 ==================
 
 Getting Started
@@ -8,7 +8,7 @@ Getting Started
 
 - $venv/bin/python setup.py develop
 
-- $venv/bin/initialize_medmedweb_db development.ini
+- $venv/bin/initialize_domidooweb_db development.ini
 
 - $venv/bin/pserve development.ini
 

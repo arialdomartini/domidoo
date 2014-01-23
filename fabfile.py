@@ -5,10 +5,10 @@ env.use_ssh_config=True
 env.hosts = ['medmed']
 
 contexts = {
-    'medmed': {
+    'domidoo': {
         'port': 8003,
-        'virtualenv': 'medmedenv',
-        'gunicorn_pid' : '~/medmed-gunicorn-pid'
+        'virtualenv': 'domidooenv',
+        'gunicorn_pid' : '~/domidoo-gunicorn-pid'
     }
 }
 
@@ -17,34 +17,34 @@ def activate(context_name):
 
 @task
 def build():
-    context_name = 'medmed'
+    context_name = 'domidoo'
     context = contexts[context_name]
     virtualenv = context['virtualenv']
     run('rm -fr {0}'.format(virtualenv))
     run('virtualenv {0}'.format(virtualenv))
     with prefix(activate(virtualenv)):
-        run('git clone https://github.com/arialdomartini/medmed.git')
-        run('cd medmed && pip install -r requirements.txt')
-        run('cd medmed/medmedweb && python setup.py develop')
+        run('git clone https://github.com/arialdomartini/domidoo.git')
+        run('cd domidoo && pip install -r requirements.txt')
+        run('cd domidoo/domidooweb && python setup.py develop')
         run('rm -fr ~/db && mkdir ~/db')
-        run('initialize_medmedweb_db medmed/medmedweb/production.ini')
+        run('initialize_domidooweb_db domidoo/domidooweb/production.ini')
 
 
 
 @task
 def start():
-    context_name = 'medmed'
-    context = contexts['medmed']
+    context_name = 'domidoo'
+    context = contexts['domidoo']
     gunicorn_pid = context['gunicorn_pid']
     with prefix(activate(context['virtualenv'])):
 
         port = context['port']
         print "Starting the app on context ".format(context_name)
-        run('gunicorn --daemon -p {0} -b 0.0.0.0:{1} --paster medmed/medmedweb/production.ini'.format(gunicorn_pid, port))
+        run('gunicorn --daemon -p {0} -b 0.0.0.0:{1} --paster domidoo/domidooweb/production.ini'.format(gunicorn_pid, port))
 
 @task
 def stop():
-    context_name = 'medmed'
+    context_name = 'domidoo'
     context = contexts[context_name]
     port = context['port']
     gunicorn_pid = context['gunicorn_pid']
