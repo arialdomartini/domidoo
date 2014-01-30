@@ -27,7 +27,7 @@ def build():
         run('cd domidoo && pip install -r requirements.txt')
         run('cd domidoo/domidooweb && python setup.py develop')
         run('rm -fr ~/db && mkdir ~/db')
-        run('initialize_domidooweb_db domidoo/domidooweb/production.ini')
+        run('alembic -n prod upgrade head')
 
 
 
