@@ -35,6 +35,7 @@ class FunctionalTests(unittest.TestCase):
         res = self.testapp.post_json('/places/new', {'name': 'foo'})
 
         response = json.loads(res.body)
+
         assert response['place'] == 'foo'
 
         actual = DBSession.query(Place).filter_by(name='foo').first()
