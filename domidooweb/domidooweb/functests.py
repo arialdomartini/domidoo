@@ -2,15 +2,17 @@ import unittest
 import os
 here = os.path.dirname(__file__)
 from paste.deploy.loadwsgi import appconfig
+dbfile = os.path.join(here, '../db/', 'test.sqlite')
 
 class FunctionalTests(unittest.TestCase):
     def setUp(self):
 
         from alembic.config import Config
         from alembic import command
-        alembic_cfg = Config(os.path.join(here, '../', 'alembic-test.ini'))
-#        alembic_cfg.set_main_option('script_location', os.path.join(here, '../', 'dbmigration'))
-#        alembic_cfg.set_main_option('sqlalchemy.url', 'sqlite://')
+        alembic_cfg = Config(os.path.join(here, '../', 'alembic.ini'))
+#        alembic_cfg = Config(os.path.join(here, '../', 'alembic.ini'), ini_section = 'test')
+##        alembic_cfg.set_main_option('script_location', os.path.join(here, '../', 'dbmigration'))
+##        alembic_cfg.set_main_option('sqlalchemy.url', 'sqlite://')
         command.upgrade(alembic_cfg, "head")
 
         settings = appconfig('config:' + os.path.join(here, '../', 'test.ini'))
@@ -20,7 +22,8 @@ class FunctionalTests(unittest.TestCase):
         self.testapp = TestApp(app)
 
     def tearDown(self):
-        os.unlink('./db/test.sqlite')
+        os.unlink(dbfile)
+
 
     def test_home(self):
         res = self.testapp.get('/')

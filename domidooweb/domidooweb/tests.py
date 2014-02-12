@@ -7,27 +7,27 @@ from .models import DBSession
 
 here = os.path.dirname(__file__)
 dbfile = os.path.join(here, '../db/', 'test.sqlite')
-dburl = 'sqlite:///%s' % dbfile
-
+#dburl = 'sqlite:///%s' % dbfile
+dburl = 'sqlite://'
 class TestMyView(unittest.TestCase):
     def setUp(self):
         self.config = testing.setUp()
         from sqlalchemy import create_engine
+        
+#        os.unlink(dbfile)
+
+        DBSession.remove()
+        #from alembic.config import Config
+        #from alembic import command
+        #alembic_cfg = Config(os.path.join(here, '../', 'alembic.ini'), ini_section = 'test')
+        #command.upgrade(alembic_cfg, "head")
 
         engine = create_engine(dburl)
-
-        from alembic.config import Config
-        from alembic import command
-        alembic_cfg = Config(os.path.join(here, '../', 'alembic-test.ini'))
-#        alembic_cfg.set_main_option('script_location', os.path.join(here, '../', 'dbmigration'))
-#        alembic_cfg.set_main_option('sqlalchemy.url', 'sqlite://')
-        command.upgrade(alembic_cfg, "head")
-
-
         from .models import (
             Base,
             Place,
             )
+        
         DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)
         with transaction.manager:
@@ -37,7 +37,7 @@ class TestMyView(unittest.TestCase):
     def tearDown(self):
         DBSession.remove()
         testing.tearDown()
-        os.unlink(dbfile)
+        #os.unlink(dbfile)
 
 
     def test_that_home_can_be_reached(self):
