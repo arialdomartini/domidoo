@@ -9,10 +9,7 @@ class FunctionalTests(unittest.TestCase):
 
         from alembic.config import Config
         from alembic import command
-        alembic_cfg = Config(os.path.join(here, '../', 'alembic.ini'))
-#        alembic_cfg = Config(os.path.join(here, '../', 'alembic.ini'), ini_section = 'test')
-##        alembic_cfg.set_main_option('script_location', os.path.join(here, '../', 'dbmigration'))
-##        alembic_cfg.set_main_option('sqlalchemy.url', 'sqlite://')
+        alembic_cfg = Config(os.path.join(here, '../', 'alembic.ini'), ini_section = 'test')
         command.upgrade(alembic_cfg, "head")
 
         settings = appconfig('config:' + os.path.join(here, '../', 'test.ini'))

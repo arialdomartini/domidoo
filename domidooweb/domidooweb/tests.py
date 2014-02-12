@@ -5,22 +5,13 @@ from pyramid import testing
 
 from .models import DBSession
 
-here = os.path.dirname(__file__)
-dbfile = os.path.join(here, '../db/', 'test.sqlite')
-#dburl = 'sqlite:///%s' % dbfile
 dburl = 'sqlite://'
 class TestMyView(unittest.TestCase):
     def setUp(self):
         self.config = testing.setUp()
         from sqlalchemy import create_engine
         
-#        os.unlink(dbfile)
-
         DBSession.remove()
-        #from alembic.config import Config
-        #from alembic import command
-        #alembic_cfg = Config(os.path.join(here, '../', 'alembic.ini'), ini_section = 'test')
-        #command.upgrade(alembic_cfg, "head")
 
         engine = create_engine(dburl)
         from .models import (
@@ -37,8 +28,6 @@ class TestMyView(unittest.TestCase):
     def tearDown(self):
         DBSession.remove()
         testing.tearDown()
-        #os.unlink(dbfile)
-
 
     def test_that_home_can_be_reached(self):
         from .views import home
