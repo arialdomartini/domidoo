@@ -1,5 +1,9 @@
 import unittest
 import os
+import json
+from .models import DBSession
+from .models import Place
+
 here = os.path.dirname(__file__)
 from paste.deploy.loadwsgi import appconfig
 dbfile = os.path.join(here, '../db/', 'test.sqlite')
@@ -29,6 +33,10 @@ class FunctionalTests(unittest.TestCase):
 
     def test_place_new(self):
         res = self.testapp.post_json('/places/new', {'name': 'foo'})
-        import json
+
         response = json.loads(res.body)
         assert response['place'] == 'foo'
+
+        actual = DBSession.query(Place).filter_by(name='foo').first()
+        assert actual.name == 'foo'
+
