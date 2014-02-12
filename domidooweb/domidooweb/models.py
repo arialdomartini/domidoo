@@ -22,8 +22,10 @@ class Place(Base):
     __tablename__ = 'places'
     id = Column(Integer, primary_key=True)
     name = Column(Text)
+    city = Column(Text)
 
-    def __init__(self, name):
+    def __init__(self, name, city):
         self.name = name
+        self.city = city
 
-Index('place_name', Place.name, unique=True, mysql_length=255)
+Index('place_name', Place.name, unique=True)

@@ -32,12 +32,15 @@ class FunctionalTests(unittest.TestCase):
         assert res.status == '200 OK'
 
     def test_place_new(self):
-        res = self.testapp.post_json('/places/new', {'name': 'foo'})
+        res = self.testapp.post_json('/places/new', 
+                                     {'name': 'bilocale arredato', 
+                                      'city': 'lomazzo'})
 
         response = json.loads(res.body)
 
-        assert response['place'] == 'foo'
+        assert response['place'] == 'bilocale arredato'
 
-        actual = DBSession.query(Place).filter_by(name='foo').first()
-        assert actual.name == 'foo'
+        actual = DBSession.query(Place).filter_by(name='bilocale arredato').first()
+        assert actual.name == 'bilocale arredato'
+        assert actual.city == 'lomazzo'
 

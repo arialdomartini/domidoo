@@ -18,7 +18,8 @@ def home(request):
 def place_new(request):
     dat = request.json_body
     name = dat['name']
-    place = Place(name=name)
+    city = dat['city']
+    place = Place(name=name, city=city)
     DBSession.add(place)
 
     return {'place': dat['name']}
