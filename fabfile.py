@@ -26,7 +26,6 @@ def build():
         run('git clone https://github.com/arialdomartini/domidoo.git')
         run('cd domidoo && pip install -r requirements.txt')
         run('cd domidoo/domidooweb && python setup.py develop')
-        run('rm -fr ~/db && mkdir ~/db')
         run('cd domidoo/domidooweb && alembic -n prod upgrade head')
 
 
@@ -34,7 +33,7 @@ def build():
 @task
 def start():
     context_name = 'domidoo'
-    context = contexts['domidoo']
+    context = contexts[context_name]
     gunicorn_pid = context['gunicorn_pid']
     with prefix(activate(context['virtualenv'])):
 
