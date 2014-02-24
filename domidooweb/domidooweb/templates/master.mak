@@ -40,7 +40,7 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/about" target="_blank">About</a></li>
+            <li><a href="${request.route_url('about')}" target="_blank">About</a></li>
           </ul>
 
         </div>
