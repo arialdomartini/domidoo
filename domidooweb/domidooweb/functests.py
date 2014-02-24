@@ -30,12 +30,19 @@ class FunctionalTests(unittest.TestCase):
         res = self.testapp.get('/')
         assert res.status == '200 OK'
 
+
     def test_about_page_responds(self):
         res = self.testapp.get('/about')
         assert res.status == '200 OK'
 
+
+    def test_that_the_unprotected_admin_page_exists(self):
+        res = self.testapp.get('/admin')
+        assert res.status == '200 OK'
+
+
     def test_place_new(self):
-        res = self.testapp.post_json('/places/new', 
+        res = self.testapp.post_json('/admin/places/new', 
                                      {'name': 'bilocale arredato', 
                                       'city': 'lomazzo'})
 

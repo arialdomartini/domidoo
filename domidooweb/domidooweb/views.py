@@ -17,7 +17,15 @@ def home(request):
 def about(request):
     return {}
 
-@view_config(route_name='places.new', renderer='json')
+
+
+
+@view_config(route_name='admin.home', renderer='admin/home.mak')
+def admin_home(request):
+    return {}
+
+
+@view_config(route_name='admin.places.new', renderer='json')
 def place_new(request):
     dat = request.json_body
     name = dat['name']
