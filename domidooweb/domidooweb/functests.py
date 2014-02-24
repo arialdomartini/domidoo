@@ -28,7 +28,10 @@ class FunctionalTests(unittest.TestCase):
 
     def test_home(self):
         res = self.testapp.get('/')
-        assert ('this is the body' in res.body)
+        assert res.status == '200 OK'
+
+    def test_about_page_responds(self):
+        res = self.testapp.get('/about')
         assert res.status == '200 OK'
 
     def test_place_new(self):

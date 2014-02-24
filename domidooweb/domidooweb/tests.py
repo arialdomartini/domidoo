@@ -34,6 +34,12 @@ class IntegrationTests(unittest.TestCase):
 
         assert info['project'] == 'domidooweb'
 
+    def test_that_about_page_can_be_reached(self):
+        info = about(self.request)
+
+        assert True
+
+
     def test_that_a_new_place_can_be_added(self):
         self.request.json_body = {'name':'doh', 'city': 'zola'}
 
