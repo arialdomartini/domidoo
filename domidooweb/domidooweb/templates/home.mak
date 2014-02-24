@@ -1,5 +1,6 @@
 <%namespace name="master" file="master.mak"/>
 <%master:layout>
-    <%def name="title()">Hello world!</%def>
-        this is the body
+    <%def name="pagetitle()">Domidoo</%def>
+Hello, world!
+
 </%master:layout>

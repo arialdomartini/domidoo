@@ -13,7 +13,6 @@ from .models import (
 def home(request):
     return {'project': 'domidooweb'}
 
-
 @view_config(route_name='places.new', renderer='json')
 def place_new(request):
     dat = request.json_body
