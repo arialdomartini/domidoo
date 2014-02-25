@@ -5,6 +5,7 @@ from pyramid import testing
 
 from .models import *
 from .views import *
+from .admin_views import *
 
 dburl = 'sqlite://'
 class IntegrationTests(unittest.TestCase):
@@ -48,3 +49,10 @@ class IntegrationTests(unittest.TestCase):
         actual = DBSession.query(Place).filter_by(name='doh').first()
         assert actual.name == 'doh'
         assert actual.city == 'zola'
+
+    def get_file_extension(self):
+        filename = '/usr/doh/foo.bar.jpg'
+        
+        ext = get_file_extension(filename)
+
+        assert ext == 'jpg'

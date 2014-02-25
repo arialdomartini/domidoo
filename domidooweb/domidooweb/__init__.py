@@ -18,6 +18,7 @@ def main(global_config, **settings):
     config.add_route('about', '/about')
 
     config.add_route('admin.home', '/admin')
+    config.add_route('admin.places.new.json', '/admin/places/new.json')
     config.add_route('admin.places.new', '/admin/places/new')
 
     config.scan()

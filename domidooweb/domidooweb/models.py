@@ -23,9 +23,11 @@ class Place(Base):
     id = Column(Integer, primary_key=True)
     name = Column(Text)
     city = Column(Text)
+    image = Column(Text)
 
-    def __init__(self, name, city):
+    def __init__(self, name, city, image):
         self.name = name
         self.city = city
+        self.image = image
 
 Index('place_name', Place.name, unique=True)
