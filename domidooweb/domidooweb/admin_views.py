@@ -13,28 +13,27 @@ from .models import (
     )
 
 def save_uploaded_file(form_field, upload_dir):
-        input_file = form_field.file
-        original_filename = form_field.filename
-        dir(input_file)
-        the_name = "%s.%s" %( uuid.uuid4(), os.path.basename(original_filename) )
-        file_path = os.path.join(upload_dir, the_name)
+    input_file = form_field.file
+    original_filename = form_field.filename
+    the_name = "%s.%s" %( uuid.uuid4(), os.path.basename(original_filename) )
+    file_path = os.path.join(upload_dir, the_name)
 
-        temp_file_path = file_path + '~'
+    temp_file_path = file_path + '~'
+    
+    output_file = open(temp_file_path, 'wb')
 
-        output_file = open(temp_file_path, 'wb')
-        # Finally write the data to a temporary file
-        input_file.seek(0)
-        while True:
-            data = input_file.read(2<<16)
-            if not data:
-                break
-            output_file.write(data)
+    input_file.seek(0)
+    while True:
+        data = input_file.read(2<<16)
+        if not data:
+            break
+        output_file.write(data)
 
-        output_file.close()
+    output_file.close()
 
-        os.rename(temp_file_path, file_path)
-
-        return the_name
+    os.rename(temp_file_path, file_path)
+    
+    return the_name
 
 
 

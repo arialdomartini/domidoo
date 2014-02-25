@@ -41,14 +41,6 @@ class IntegrationTests(unittest.TestCase):
         assert True
 
 
-    def test_that_a_new_place_can_be_added(self):
-        self.request.json_body = {'name':'doh', 'city': 'zola'}
-
-        place_new(self.request)
-
-        actual = DBSession.query(Place).filter_by(name='doh').first()
-        assert actual.name == 'doh'
-        assert actual.city == 'zola'
 
     def get_file_extension(self):
         filename = '/usr/doh/foo.bar.jpg'

@@ -6,7 +6,8 @@ from .models import Place
 
 here = os.path.dirname(__file__)
 from paste.deploy.loadwsgi import appconfig
-dbfile = os.path.join(here, '../db/', 'test.sqlite')
+dbfile = os.path.join(here, '../../../db/', 'test.sqlite')
+
 
 class FunctionalTests(unittest.TestCase):
     def setUp(self):
@@ -25,7 +26,6 @@ class FunctionalTests(unittest.TestCase):
     def tearDown(self):
         os.unlink(dbfile)
 
-
     def test_home(self):
         res = self.testapp.get('/')
         assert res.status == '200 OK'
@@ -41,16 +41,24 @@ class FunctionalTests(unittest.TestCase):
         assert res.status == '200 OK'
 
 
-    def test_place_new(self):
-        res = self.testapp.post_json('/admin/places/new', 
-                                     {'name': 'bilocale arredato', 
-                                      'city': 'lomazzo'})
+    def test_a_new_place_with_an_image_can_be_posted(self):
 
-        response = json.loads(res.body)
+        res = self.testapp.post(url ='/admin/places/new', 
+                                params = {'name': 'bilocale arredato', 
+                                 'city': 'lomazzo'}, 
+                                upload_files = [("image", "example.jpg", "somecontent")]
+        )
 
-        assert response['place'] == 'bilocale arredato'
+        assert res.status == '302 Found'
 
         actual = DBSession.query(Place).filter_by(name='bilocale arredato').first()
         assert actual.name == 'bilocale arredato'
         assert actual.city == 'lomazzo'
+        assert actual.image != ""
+
+        upload_dir = '/../../var/tests/images'
+        file_path = os.path.join(here, upload_dir, actual.image)
+
+        os.path.isfile(file_path)
+
 
