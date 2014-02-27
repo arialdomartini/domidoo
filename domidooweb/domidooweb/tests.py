@@ -40,11 +40,3 @@ class IntegrationTests(unittest.TestCase):
 
         assert True
 
-
-
-    def get_file_extension(self):
-        filename = '/usr/doh/foo.bar.jpg'
-        
-        ext = get_file_extension(filename)
-
-        assert ext == 'jpg'
