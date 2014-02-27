@@ -33,7 +33,7 @@ setup(name='domidooweb',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
-      test_suite='domidooweb',
+      test_suite='domidooweb.tests',
       install_requires=requires,
       entry_points="""\
       [paste.app_factory]

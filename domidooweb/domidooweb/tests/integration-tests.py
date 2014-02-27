@@ -3,9 +3,9 @@ import transaction
 import os
 from pyramid import testing
 
-from .models import *
-from .views import *
-from .admin_views import *
+from domidooweb.models import *
+from domidooweb.views import *
+from domidooweb.admin_views import *
 
 dburl = 'sqlite://'
 class IntegrationTests(unittest.TestCase):
@@ -16,10 +16,6 @@ class IntegrationTests(unittest.TestCase):
         DBSession.remove()
 
         engine = create_engine(dburl)
-        from .models import (
-            Base,
-            Place,
-            )
         
         DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)

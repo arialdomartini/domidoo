@@ -1,12 +1,12 @@
 import unittest
 import os
 import json
-from .models import DBSession
-from .models import Place
+from domidooweb.models import DBSession
+from domidooweb.models import Place
 
 here = os.path.dirname(__file__)
 from paste.deploy.loadwsgi import appconfig
-dbfile = os.path.join(here, '../../../db/', 'test.sqlite')
+dbfile = os.path.join(here, '../../../../db/', 'test.sqlite')
 
 
 class FunctionalTests(unittest.TestCase):
@@ -14,10 +14,10 @@ class FunctionalTests(unittest.TestCase):
 
         from alembic.config import Config
         from alembic import command
-        alembic_cfg = Config(os.path.join(here, '../', 'alembic.ini'), ini_section = 'test')
+        alembic_cfg = Config(os.path.join(here, '../../', 'alembic.ini'), ini_section = 'test')
         command.upgrade(alembic_cfg, "head")
 
-        settings = appconfig('config:' + os.path.join(here, '../', 'test.ini'))
+        settings = appconfig('config:' + os.path.join(here, '../../', 'test.ini'))
         from domidooweb import main
         app = main({}, **settings)
         from webtest import TestApp
