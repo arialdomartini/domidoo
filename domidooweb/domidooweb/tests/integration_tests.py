@@ -26,10 +26,16 @@ class IntegrationTests(unittest.TestCase):
         DBSession.remove()
         testing.tearDown()
 
+    def test_x(self):
+        pass
+
+
     def test_that_home_can_be_reached(self):
+        DBSession.add(Place('bilocale', 'lomazzo', 'image'))
+
         info = home(self.request)
 
-        assert info['project'] == 'domidooweb'
+        assert info['place'].city == 'lomazzo'
 
     def test_that_about_page_can_be_reached(self):
         info = about(self.request)

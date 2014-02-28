@@ -2,6 +2,7 @@ import unittest
 import os
 import json
 from domidooweb.models import DBSession
+
 from domidooweb.models import Place
 
 here = os.path.dirname(__file__)
@@ -27,6 +28,10 @@ class FunctionalTests(unittest.TestCase):
         os.unlink(dbfile)
 
     def test_home(self):
+        import transaction
+        with transaction.manager:
+            DBSession.add(Place('name-test', 'city', 'image'))
+
         res = self.testapp.get('/')
         assert res.status == '200 OK'
 
@@ -42,7 +47,6 @@ class FunctionalTests(unittest.TestCase):
 
 
     def test_a_new_place_with_an_image_can_be_posted(self):
-
         res = self.testapp.post(url ='/admin/places/new', 
                                 params = {'name': 'bilocale arredato', 
                                  'city': 'lomazzo'}, 

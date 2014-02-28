@@ -7,11 +7,14 @@ from .models import (
     DBSession,
     Place,
     )
-
+from domain import PlaceRepository
 
 @view_config(route_name='home', renderer='home.mak')
 def home(request):
-    return {'project': 'domidooweb'}
+    repo = PlaceRepository()
+    place = repo.get_first()
+
+    return {'place': place}
 
 @view_config(route_name='about', renderer='about.mak')
 def about(request):

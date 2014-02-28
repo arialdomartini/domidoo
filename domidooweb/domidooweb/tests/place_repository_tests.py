@@ -6,12 +6,13 @@ from pyramid import testing
 from domidooweb.models import *
 from domidooweb.views import *
 from domidooweb.admin_views import *
-from .integration import Integration 
+from integration_tests import IntegrationTests 
 
 from domidooweb.domain import PlaceRepository
 
 dburl = 'sqlite://'
-class PlaceRepositoryTests(Integration):
+class PlaceRepositoryTests(IntegrationTests):
+
     def test_a_place_can_be_retrieved_from_the_db(self):
         place=Place('name', 'city', 'image')
         DBSession.add(place)
@@ -23,3 +24,4 @@ class PlaceRepositoryTests(Integration):
         assert actual.name == 'name'
         assert actual.city == 'city'
         assert actual.image == 'image'
+
