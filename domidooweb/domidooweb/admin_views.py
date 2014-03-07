@@ -7,10 +7,10 @@ import os.path
 
 from sqlalchemy.exc import DBAPIError
 
-from .models import (
-    DBSession,
-    Place,
-    )
+from .models import DBSession
+from .models import Place
+from .models import Tag
+
 
 def save_uploaded_file(form_field, upload_dir):
     input_file = form_field.file
@@ -65,4 +65,18 @@ def place_new(request):
         place = Place(name=name, city=city, image=image_filename)
         DBSession.add(place)
 
-        return HTTPFound(location = request.route_url('home'))
+        return HTTPFound(location = request.route_url('admin.places.new'))
+
+
+@view_config(route_name='admin.tags.new', renderer='admin/tags_new.mak')
+def tags_new(request):
+    if(request.method == 'GET'):
+        return {'error': '', 'name': ''}
+    else:
+        dat = request.POST
+        name = dat.get('name')
+
+        tag = Tag(name=name)
+        DBSession.add(tag)
+
+        return HTTPFound(location = request.route_url('admin.tags.new'))

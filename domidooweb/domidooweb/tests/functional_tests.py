@@ -4,6 +4,7 @@ import json
 from domidooweb.models import DBSession
 
 from domidooweb.models import Place
+from domidooweb.models import Tag
 
 here = os.path.dirname(__file__)
 from paste.deploy.loadwsgi import appconfig
@@ -48,14 +49,14 @@ class FunctionalTests(unittest.TestCase):
 
     def test_a_new_place_with_an_image_can_be_posted(self):
         res = self.testapp.post(url ='/admin/places/new', 
-                                params = {'name': 'bilocale arredato', 
-                                 'city': 'lomazzo'}, 
-                                upload_files = [("image", "example.jpg", "somecontent")]
+            params = {'name': 'bilocale arredato', 
+                      'city': 'lomazzo'}, 
+            upload_files = [("image", "example.jpg", "somecontent")]
         )
 
         assert res.status == '302 Found'
 
-        actual = DBSession.query(Place).filter_by(name='bilocale arredato').first()
+        actual = DBSession.query(Place).filter_by(name='bilocale arredato').one()
         assert actual.name == 'bilocale arredato'
         assert actual.city == 'lomazzo'
         assert actual.image != ""
@@ -64,5 +65,16 @@ class FunctionalTests(unittest.TestCase):
         file_path = os.path.join(here, upload_dir, actual.image)
 
         os.path.isfile(file_path)
+
+
+    def test_a_new_tag_can_be_saved(self):
+        res = self.testapp.post(url ='/admin/tags/new', 
+            params = {'name': 'bilocale'}
+        )
+
+        assert res.status == '302 Found'
+
+        actual = DBSession.query(Tag).filter_by(name='bilocale').one()
+        assert actual.name == 'bilocale'
 
 
