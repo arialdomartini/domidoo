@@ -16,7 +16,7 @@ import sqlalchemy as sa
 
 def upgrade():
     op.create_table('places',
-        sa.Column('id', sa.Integer(), nullable=False),
+        sa.Column('id', sa.Text(), nullable=False),
         sa.Column('name', sa.Text(), nullable=True),
         sa.Column('city', sa.Text(), nullable=True),
         sa.Column('image', sa.Text(), nullable=True),

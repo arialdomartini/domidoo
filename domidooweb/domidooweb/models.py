@@ -13,6 +13,8 @@ from sqlalchemy.orm import (
     )
 
 from zope.sqlalchemy import ZopeTransactionExtension
+import uuid
+
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
@@ -20,12 +22,13 @@ Base = declarative_base()
 
 class Place(Base):
     __tablename__ = 'places'
-    id = Column(Integer, primary_key=True)
+    id = Column(Text, primary_key=True)
     name = Column(Text)
     city = Column(Text)
     image = Column(Text)
 
     def __init__(self, name, city, image):
+        self.id = str(uuid.uuid4())
         self.name = name
         self.city = city
         self.image = image
