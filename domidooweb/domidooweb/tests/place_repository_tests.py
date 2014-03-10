@@ -25,3 +25,16 @@ class PlaceRepositoryTests(IntegrationTests):
         assert actual.city == 'city'
         assert actual.image == 'image'
 
+    def test_a_place_can_be_retrieved_from_the_db_by_by_id(self):
+        place=Place('name', 'city', 'image')
+        DBSession.add(place)
+        placeid = place.id
+
+        sut = PlaceRepository()
+
+        actual = sut.get(placeid)
+
+        assert actual.name == 'name'
+        assert actual.city == 'city'
+        assert actual.image == 'image'
+

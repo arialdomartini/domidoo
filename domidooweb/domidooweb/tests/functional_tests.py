@@ -5,6 +5,7 @@ from domidooweb.models import DBSession
 
 from domidooweb.models import Place
 from domidooweb.models import Tag
+import transaction
 
 here = os.path.dirname(__file__)
 from paste.deploy.loadwsgi import appconfig
@@ -29,7 +30,6 @@ class FunctionalTests(unittest.TestCase):
         os.unlink(dbfile)
 
     def test_home(self):
-        import transaction
         with transaction.manager:
             DBSession.add(Place('name-test', 'city', 'image'))
 
@@ -78,3 +78,15 @@ class FunctionalTests(unittest.TestCase):
         assert actual.name == 'bilocale'
 
 
+    def test_a_tag_can_be_added_to_an_existing_place(self):
+        with transaction.manager:
+            place = Place('foo-place', 'city', 'image')
+            DBSession.add(place)
+            placeid = place.id
+
+        res = self.testapp.post(url = '/admin/tags/add', params = {'tag': 'foo', 'place': placeid})
+
+        actual_place = DBSession.query(Place).filter_by(id=placeid).one()
+        assert actual_place.tags[0].name == 'foo'
+
+        

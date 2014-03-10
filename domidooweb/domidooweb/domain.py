@@ -12,3 +12,6 @@ from .models import (
 class PlaceRepository(object):
     def get_first(self):
         return DBSession.query(Place).first()
+
+    def get(self, id):
+        return DBSession.query(Place).filter(Place.id == id).one()

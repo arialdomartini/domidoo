@@ -10,7 +10,7 @@ from sqlalchemy.exc import DBAPIError
 from .models import DBSession
 from .models import Place
 from .models import Tag
-
+from domain import PlaceRepository
 
 def save_uploaded_file(form_field, upload_dir):
     input_file = form_field.file
@@ -80,3 +80,16 @@ def tags_new(request):
         DBSession.add(tag)
 
         return HTTPFound(location = request.route_url('admin.tags.new'))
+
+@view_config(route_name='admin.tags.add', renderer='json')
+def tags_add(request):
+    place_id = request.POST.get('place')
+    tag_name = request.POST.get('tag')
+
+    repo = PlaceRepository()
+    place = repo.get(place_id)
+    place.tags.append(Tag(tag_name))
+
+
+
+    return {'result': 'ok'}
