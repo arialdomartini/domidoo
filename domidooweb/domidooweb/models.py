@@ -30,8 +30,8 @@ class Place(Base):
 
     tags = relationship('Tag', secondary=places_tags, backref='places')
 
-    def __init__(self, name, city, image):
-        self.id = str(uuid.uuid4())
+    def __init__(self, name, city, image, id = None):
+        self.id = str(uuid.uuid4()) if id == None else id
         self.name = name
         self.city = city
         self.image = image
