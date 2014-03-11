@@ -78,7 +78,7 @@ class FunctionalTests(unittest.TestCase):
         assert actual.name == 'bilocale'
 
 
-    def test_a_tag_can_be_added_to_an_existing_place(self):
+    def test_when_a_tag_is_added_to_a_place_it_is_appended_to_tags(self):
         with transaction.manager:
             place = Place('foo-place', 'city', 'image')
             DBSession.add(place)
@@ -88,5 +88,25 @@ class FunctionalTests(unittest.TestCase):
 
         actual_place = DBSession.query(Place).filter_by(id=placeid).one()
         assert actual_place.tags[0].name == 'foo'
+
+
+    def test_when_an_existing_tag_is_appended_to_a_place_the_existing_tag_is_used(self):
+        with transaction.manager:
+            existing_tag = Tag(name = 'foo')
+            DBSession.add(existing_tag)
+
+            place = Place('foo-place', 'city', 'image')
+            DBSession.add(place)
+            placeid = place.id
+            id = existing_tag.id
+
+        res = self.testapp.post(url = '/admin/tags/add', params = {'tag': 'foo', 'place': placeid})
+
+        actual_place = DBSession.query(Place).filter_by(id=placeid).one()
+        actual_tag = actual_place.tags[0]
+
+        assert actual_tag.id == id
+
+
 
         

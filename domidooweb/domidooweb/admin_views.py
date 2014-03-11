@@ -11,6 +11,7 @@ from .models import DBSession
 from .models import Place
 from .models import Tag
 from domain import PlaceRepository
+from domain import TagRepository
 
 def save_uploaded_file(form_field, upload_dir):
     input_file = form_field.file
@@ -86,10 +87,9 @@ def tags_add(request):
     place_id = request.POST.get('place')
     tag_name = request.POST.get('tag')
 
-    repo = PlaceRepository()
-    place = repo.get(place_id)
-    place.tags.append(Tag(tag_name))
-
-
+    place = PlaceRepository().get(place_id)
+    tag = TagRepository().get_or_create_by_name(tag_name)
+    
+    place.tags.append(tag)
 
     return {'result': 'ok'}
