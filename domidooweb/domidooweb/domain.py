@@ -15,6 +15,9 @@ class PlaceRepository(object):
     def get(self, id):
         return DBSession.query(Place).filter(Place.id == id).one()
 
+    def get_all(self):
+        return DBSession.query(Place)
+
 class TagRepository(object):
 
     def get_or_create_by_name(self, name):

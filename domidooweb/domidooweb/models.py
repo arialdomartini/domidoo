@@ -21,7 +21,15 @@ places_tags = Table('places_tags', Base.metadata,
     Column('tag_id', Integer, ForeignKey('tags.id'))
 )
 
-class Place(Base):
+from collections import OrderedDict
+class DictSerializable(object):
+    def to_json(self):
+        result = OrderedDict()
+        for key in self.__mapper__.c.keys():
+            result[key] = getattr(self, key)
+        return result
+
+class Place(Base, DictSerializable):
     __tablename__ = 'places'
     id = Column(Text, primary_key=True)
     name = Column(Text)
@@ -35,6 +43,9 @@ class Place(Base):
         self.name = name
         self.city = city
         self.image = image
+
+    def to_json(self):
+        return { 'id': self.id, 'name': self.name, 'city': self.city }
 
 
 class Tag(Base):

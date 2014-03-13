@@ -107,6 +107,22 @@ class FunctionalTests(unittest.TestCase):
 
         assert actual_tag.id == id
 
+    def test_a_json_list_of_places_can_be_retrieved(self):
+        with transaction.manager:
+            DBSession.add(Place(id = 'place1', name = 'foo1', city = 'lomazzo', image = None))
+            DBSession.add(Place(id = 'place2', name = 'foo2', city = 'lomazzo', image = None))
+            DBSession.add(Place(id = 'place3', name = 'foo3', city = 'lomazzo', image = None))
+
+        res = self.testapp.get(url = '/admin/places')
+
+        actual = res.json_body['places']
+
+        assert len(actual) == 3
+        ids = [p['id'] for p in actual]
+        assert 'place1' in ids
+        assert 'place2' in ids
+        assert 'place3' in ids
+
 
 
         

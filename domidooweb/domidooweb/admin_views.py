@@ -93,3 +93,10 @@ def tags_add(request):
     place.tags.append(tag)
 
     return {'result': 'ok'}
+
+
+@view_config(route_name='admin.places', renderer='json')
+def places(request):
+    import json
+    return {'places': [ p.to_json() for p in PlaceRepository().get_all() ] }
+

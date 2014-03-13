@@ -25,6 +25,7 @@ def main(global_config, **settings):
     config.add_route('admin.places.new', '/admin/places/new')
     config.add_route('admin.tags.new', '/admin/tags/new')
     config.add_route('admin.tags.add', '/admin/tags/add')
+    config.add_route('admin.places', '/admin/places')
 
     config.scan()
     return config.make_wsgi_app()
