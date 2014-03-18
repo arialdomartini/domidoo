@@ -44,9 +44,6 @@ class Place(Base, DictSerializable):
         self.city = city
         self.image = image
 
-    def to_json(self):
-        return { 'id': self.id, 'name': self.name, 'city': self.city }
-
 
 class Tag(Base):
     __tablename__ = 'tags'
