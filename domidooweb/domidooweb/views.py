@@ -9,12 +9,13 @@ from .models import (
     )
 from domain import PlaceRepository
 
+
+place_repository = PlaceRepository()
+
 @view_config(route_name='home', renderer='home.mak')
 def home(request):
-    repo = PlaceRepository()
-    place = repo.get_first()
-
-    return {'place': place}
+    places = place_repository.get_all()
+    return {'places': places}
 
 @view_config(route_name='about', renderer='about.mak')
 def about(request):

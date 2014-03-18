@@ -4,7 +4,7 @@ import os
 from pyramid import testing
 
 from domidooweb.models import *
-from domidooweb.views import *
+import domidooweb.views
 from domidooweb.admin_views import *
 
 dburl = 'sqlite://'
@@ -30,15 +30,24 @@ class IntegrationTests(unittest.TestCase):
         pass
 
 
-    def test_that_home_can_be_reached(self):
-        DBSession.add(Place('bilocale', 'lomazzo', 'image'))
-
-        info = home(self.request)
-
-        assert info['place'].city == 'lomazzo'
-
     def test_that_about_page_can_be_reached(self):
-        info = about(self.request)
+        info = domidooweb.views.about(self.request)
 
         assert True
+
+    def test_home_displays_the_list_of_all_places(self):
+        DBSession.add(Place('bilocale', 'lomazzo', 'image1'))
+        DBSession.add(Place('trilocale', 'milano', 'image2'))
+        DBSession.add(Place('quadrilocale', 'cirimido', 'image3'))
+
+        response = domidooweb.views.home(self.request)
+        places = response['places']
+
+        assert len(places) == 3
+
+        
+
+
+
+
 
