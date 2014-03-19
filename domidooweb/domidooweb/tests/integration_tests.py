@@ -7,6 +7,8 @@ import sure
 from domidooweb.models import *
 import domidooweb.views
 from domidooweb.admin_views import *
+from mock import Mock
+
 
 dburl = 'sqlite://'
 class IntegrationTests(unittest.TestCase):
@@ -37,9 +39,9 @@ class IntegrationTests(unittest.TestCase):
         assert True
 
     def test_home_displays_the_list_of_all_places(self):
-        DBSession.add(Place('bilocale', 'lomazzo', 'image1'))
-        DBSession.add(Place('trilocale', 'milano', 'image2'))
-        DBSession.add(Place('quadrilocale', 'cirimido', 'image3'))
+        place_repository = Mock(PlaceRepository)
+        domidooweb.views.place_repository = place_repository
+        place_repository.get_all.return_value = {'place1', 'place2', 'place3'}
 
         response = domidooweb.views.home(self.request)
         places = response['places']
