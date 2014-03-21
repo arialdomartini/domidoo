@@ -2,6 +2,7 @@ import unittest
 import transaction
 import os
 from pyramid import testing
+import sure
 
 from domidooweb.models import *
 import domidooweb.views
@@ -43,7 +44,7 @@ class IntegrationTests(unittest.TestCase):
         response = domidooweb.views.home(self.request)
         places = response['places']
 
-        assert len(places) == 3
+        len(places).must.be.equal(3)
 
         
 

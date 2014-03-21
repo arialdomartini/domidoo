@@ -2,6 +2,7 @@ import unittest
 import os
 import json
 from domidooweb.models import DBSession
+import sure
 
 from domidooweb.models import Place
 from domidooweb.models import Tag
@@ -34,17 +35,17 @@ class FunctionalTests(unittest.TestCase):
             DBSession.add(Place('name-test', 'city', 'image'))
 
         res = self.testapp.get('/')
-        assert res.status == '200 OK'
+        res.status.must.be.equal('200 OK')
 
 
     def test_about_page_responds(self):
         res = self.testapp.get('/about')
-        assert res.status == '200 OK'
+        res.status.must.be.equal('200 OK')
 
 
     def test_that_the_unprotected_admin_page_exists(self):
         res = self.testapp.get('/admin')
-        assert res.status == '200 OK'
+        res.status.must.be.equal('200 OK')
 
 
     def test_a_new_place_with_an_image_can_be_posted(self):
@@ -57,14 +58,13 @@ class FunctionalTests(unittest.TestCase):
         assert res.status == '302 Found'
 
         actual = DBSession.query(Place).filter_by(name='bilocale arredato').one()
-        assert actual.name == 'bilocale arredato'
-        assert actual.city == 'lomazzo'
-        assert actual.image != ""
+        actual.name.must.be.equal('bilocale arredato')
+        actual.city.must.be.equal('lomazzo')
+        actual.image.must.contain("example.jpg")
 
-        upload_dir = '/../../var/tests/images'
+        upload_dir = '../../../../var/tests/images/'
         file_path = os.path.join(here, upload_dir, actual.image)
-
-        os.path.isfile(file_path)
+        os.path.isfile(file_path).must.be.true
 
 
     def test_a_new_tag_can_be_saved(self):
@@ -72,10 +72,10 @@ class FunctionalTests(unittest.TestCase):
             params = {'name': 'bilocale'}
         )
 
-        assert res.status == '302 Found'
+        res.status.must.be.equal('302 Found')
 
         actual = DBSession.query(Tag).filter_by(name='bilocale').one()
-        assert actual.name == 'bilocale'
+        actual.name.must.be.equal('bilocale')
 
 
     def test_when_a_tag_is_added_to_a_place_it_is_appended_to_tags(self):
@@ -87,7 +87,7 @@ class FunctionalTests(unittest.TestCase):
         res = self.testapp.post(url = '/admin/tags/add', params = {'tag': 'foo', 'place': placeid})
 
         actual_place = DBSession.query(Place).filter_by(id=placeid).one()
-        assert actual_place.tags[0].name == 'foo'
+        actual_place.tags[0].name.must.be.equal('foo')
 
 
     def test_when_an_existing_tag_is_appended_to_a_place_the_existing_tag_is_used(self):
@@ -105,7 +105,7 @@ class FunctionalTests(unittest.TestCase):
         actual_place = DBSession.query(Place).filter_by(id=placeid).one()
         actual_tag = actual_place.tags[0]
 
-        assert actual_tag.id == id
+        actual_tag.id.must.be.equal(id)
 
     def test_a_json_list_of_places_can_be_retrieved(self):
         with transaction.manager:
@@ -117,11 +117,11 @@ class FunctionalTests(unittest.TestCase):
 
         actual = res.json_body['places']
 
-        assert len(actual) == 3
+        len(actual).must.be.equal(3)
         ids = [p['id'] for p in actual]
-        assert 'place1' in ids
-        assert 'place2' in ids
-        assert 'place3' in ids
+        ids.must.be.contain('place1')
+        ids.must.be.contain('place2')
+        ids.must.be.contain('place3')
 
 
 
