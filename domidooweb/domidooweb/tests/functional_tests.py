@@ -62,10 +62,9 @@ class FunctionalTests(unittest.TestCase):
         actual.city.must.be.equal('lomazzo')
         actual.image.must.contain("example.jpg")
 
-        upload_dir = '/../../var/tests/images'
+        upload_dir = '../../../../var/tests/images/'
         file_path = os.path.join(here, upload_dir, actual.image)
-
-        #os.path.isfile(file_path).must.be.equal(True)
+        os.path.isfile(file_path).must.be.true
 
 
     def test_a_new_tag_can_be_saved(self):
