@@ -12,4 +12,4 @@ class FunctionalTests(unittest.TestCase):
     def test_place_id_can_be_programmatically_specified(self):
         place = Place(id = 'myid', name = 'foo', city = 'lomazzo', image = None)
 
-        place.id.should.equal('myid')
+        place.id.must.be.equal('myid')
