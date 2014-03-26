@@ -1,8 +1,7 @@
 ---
 - hosts: prod
-  user: root
-  sudo: no
-  accelerate: true
+  sudo: yes
+  accelerate: false
   gather_facts: no
   vars:
   - ssh_user: $ENV(USER)
@@ -19,3 +18,6 @@
   - name: #software | git is installed
     apt: pkg=git state=present
     tags: software
+
+  - name: the var/domidoo/db directory is present
+    file: path=/home/arialdomartini/var/domidoo/log owner=arialdomartini group=arialdomartini mode=0644 state=directory

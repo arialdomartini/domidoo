@@ -1,7 +1,6 @@
 ---
 - hosts: prod
-  user: root
-  sudo: no
+  sudo: yes
   gather_facts: no
 
   tasks:
