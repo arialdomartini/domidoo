@@ -21,3 +21,6 @@
 
   - name: the var/domidoo/db directory is present
     file: path=/home/arialdomartini/var/domidoo/log owner=arialdomartini group=arialdomartini mode=0644 state=directory
+
+  - name: the var/domidoo/images directory is present
+    file: path=/home/arialdomartini/var/domidoo/images owner=arialdomartini group=arialdomartini mode=0644 state=directory
