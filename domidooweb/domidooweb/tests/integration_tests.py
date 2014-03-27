@@ -43,7 +43,7 @@ class IntegrationTests(unittest.TestCase):
         response = domidooweb.views.home(self.request)
         places = response['places']
 
-        len(places).must.be.equal(3)
+        len(places).should.be.equal(3)
 
         
 
