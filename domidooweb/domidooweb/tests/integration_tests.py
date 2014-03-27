@@ -29,9 +29,6 @@ class IntegrationTests(unittest.TestCase):
         DBSession.remove()
         testing.tearDown()
 
-    def test_x(self):
-        pass
-
 
     def test_that_about_page_can_be_reached(self):
         info = domidooweb.views.about(self.request)
