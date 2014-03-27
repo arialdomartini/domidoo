@@ -13,7 +13,8 @@ def main(global_config, **settings):
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
 
-    setup_logging(global_config['__file__'])
+    if global_config != {}:
+        setup_logging(global_config['__file__'])
 
     config = Configurator(settings=settings)
     config.include('pyramid_mako')
