@@ -6,6 +6,7 @@ import sure
 
 from domidooweb.models import Place
 from domidooweb.models import Tag
+from domidooweb.models import Image
 import transaction
 
 here = os.path.dirname(__file__)
@@ -124,5 +125,14 @@ class FunctionalTests(unittest.TestCase):
         ids.should.be.contain('place3')
 
 
+    def test_an_image_can_be_retrieved_by_id(self):
+        with transaction.manager:
+            image = Image(filename = 'foo.png')
+            DBSession.add(image)
+            image_id = image.id
 
+        res = self.testapp.get(url = '/admin/images/{id}'.format(id = image_id))
         
+        actual = res.json_body
+
+        actual['image']['filename'].should.be.equal('foo.png')

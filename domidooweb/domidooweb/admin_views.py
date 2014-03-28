@@ -4,14 +4,16 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 import uuid
 import os.path
-
+import json
 from sqlalchemy.exc import DBAPIError
 
 from .models import DBSession
 from .models import Place
 from .models import Tag
+
 from domain import PlaceRepository
 from domain import TagRepository
+from domain import ImageRepository
 
 def save_uploaded_file(form_field, upload_dir):
     input_file = form_field.file
@@ -97,6 +99,13 @@ def tags_add(request):
 
 @view_config(route_name='admin.places', renderer='json')
 def places(request):
-    import json
+
     return {'places': [ p.to_json() for p in PlaceRepository().get_all() ] }
+
+@view_config(route_name='admin.images.get', renderer='json')
+def images_get(request):
+
+    image_id = request.matchdict['id']
+    image = ImageRepository().get(image_id)
+    return {'image': image.to_json()}
 

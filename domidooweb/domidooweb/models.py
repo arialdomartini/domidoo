@@ -54,3 +54,12 @@ class Tag(Base):
         self.id = str(uuid.uuid4())
         self.name = name
 
+
+class Image(Base, DictSerializable):
+    __tablename__ = 'images'
+    id = Column(Text, primary_key=True)
+    filename = Column(Text)
+
+    def __init__(self, filename):
+        self.id = str(uuid.uuid4())
+        self.filename = filename

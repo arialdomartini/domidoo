@@ -2,11 +2,14 @@ from pyramid.response import Response
 from pyramid.view import view_config
 
 from sqlalchemy.exc import DBAPIError
-
-from .models import DBSession
-from .models import Place
-from .models import Tag
 from sqlalchemy.orm.exc import NoResultFound
+
+from domidooweb.models import DBSession
+from domidooweb.models import Place
+from domidooweb.models import Tag
+from domidooweb.models import Image
+
+
 
 class PlaceRepository(object):
     def get_first(self):
@@ -25,3 +28,7 @@ class TagRepository(object):
             return DBSession.query(Tag).filter(Tag.name == name).one()
         except NoResultFound:
             return Tag(name)
+
+class ImageRepository(object):
+    def get(self, id):
+        return DBSession.query(Image).filter(Image.id == id).one()
