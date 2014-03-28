@@ -14,7 +14,8 @@ from domidooweb.models import Image
 class ImageRepositoryTests(IntegrationTests):
 
     def test_an_iname_can_be_retrieved_by_by_id(self):
-        image=Image(filename = 'foobar')
+        place = Place(name = "foo", city = "bar")
+        image=Image(filename = 'foobar', place = place)
         DBSession.add(image)
 
         sut = ImageRepository()

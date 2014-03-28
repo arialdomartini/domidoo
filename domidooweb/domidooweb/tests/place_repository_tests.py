@@ -14,7 +14,7 @@ dburl = 'sqlite://'
 class PlaceRepositoryTests(IntegrationTests):
 
     def test_a_place_can_be_retrieved_from_the_db(self):
-        place=Place('name', 'city', 'image')
+        place=Place('name', 'city')
         DBSession.add(place)
 
         sut = PlaceRepository()
@@ -23,10 +23,10 @@ class PlaceRepositoryTests(IntegrationTests):
 
         assert actual.name == 'name'
         assert actual.city == 'city'
-        assert actual.image == 'image'
+
 
     def test_a_place_can_be_retrieved_from_the_db_by_by_id(self):
-        place=Place('name', 'city', 'image')
+        place=Place('name', 'city')
         DBSession.add(place)
         placeid = place.id
 
@@ -36,14 +36,14 @@ class PlaceRepositoryTests(IntegrationTests):
 
         assert actual.name == 'name'
         assert actual.city == 'city'
-        assert actual.image == 'image'
+
 
     def test_all_placec_can_be_retrieved(self):
 
-        DBSession.add(Place('name1', 'city', 'image'))
-        DBSession.add(Place('name2', 'city', 'image'))
-        DBSession.add(Place('name3', 'city', 'image'))
-        DBSession.add(Place('name4', 'city2', 'image'))
+        DBSession.add(Place('name1', 'city'))
+        DBSession.add(Place('name2', 'city'))
+        DBSession.add(Place('name3', 'city'))
+        DBSession.add(Place('name4', 'city2'))
 
         sut = PlaceRepository()
 

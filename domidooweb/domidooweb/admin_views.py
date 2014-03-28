@@ -7,9 +7,10 @@ import os.path
 import json
 from sqlalchemy.exc import DBAPIError
 
-from .models import DBSession
-from .models import Place
-from .models import Tag
+from domidooweb.models import DBSession
+from domidooweb.models import Place
+from domidooweb.models import Tag
+from domidooweb.models import Image
 
 from domain import PlaceRepository
 from domain import TagRepository
@@ -65,7 +66,8 @@ def place_new(request):
         else:
             image_filename = None
 
-        place = Place(name=name, city=city, image=image_filename)
+        place = Place(name=name, city=city)
+        place.images.append(Image(image_filename, place))
         DBSession.add(place)
 
         return HTTPFound(location = request.route_url('admin.places.new'))

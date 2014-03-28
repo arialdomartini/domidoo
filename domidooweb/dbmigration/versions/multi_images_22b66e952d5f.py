@@ -19,7 +19,6 @@ def upgrade():
         sa.Column('id', sa.Text(), nullable=False),
         sa.Column('name', sa.Text(), nullable=True),
         sa.Column('city', sa.Text(), nullable=True),
-        sa.Column('image', sa.Text(), nullable=True),
         sa.PrimaryKeyConstraint('id')
     )
 
@@ -38,8 +37,10 @@ def upgrade():
 
     op.create_table('images',
         sa.Column('id', sa.Text(), nullable=False),
+        sa.Column('place_id', sa.Text(), nullable=False),
         sa.Column('filename', sa.Text(), nullable=True),
         sa.PrimaryKeyConstraint('id')
+#        sa.ForeignKeyConstraint(['image_id'], ['images.id'] )
     )
 
 

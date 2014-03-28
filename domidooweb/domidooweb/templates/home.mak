@@ -7,8 +7,11 @@
     ${place.name}
   </div>
   <div class="col-md-12">
-    <image src="/images/${place.image}" width="350px" />
+    % for image in place.images:
+       <image src="/images/${image.filename}" width="350px" />
+    % endfor
   </div>
+
   % for tag in place.tags:
     ${tag.name}
   % endfor

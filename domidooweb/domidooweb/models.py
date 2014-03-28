@@ -9,6 +9,9 @@ from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from zope.sqlalchemy import ZopeTransactionExtension
+from sqlalchemy.orm import relationship
+from sqlalchemy.orm import backref
+
 import uuid
 
 
@@ -34,15 +37,27 @@ class Place(Base, DictSerializable):
     id = Column(Text, primary_key=True)
     name = Column(Text)
     city = Column(Text)
-    image = Column(Text)
 
     tags = relationship('Tag', secondary=places_tags, backref='places')
+#    images = relationship("Image", order_by="Image.id", backref="place")
 
-    def __init__(self, name, city, image, id = None):
+    def __init__(self, name, city, id = None):
         self.id = str(uuid.uuid4()) if id == None else id
         self.name = name
         self.city = city
-        self.image = image
+
+
+class Image(Base, DictSerializable):
+    __tablename__ = 'images'
+    id = Column(Text, primary_key=True)
+    filename = Column(Text)
+    place_id = Column(Text, ForeignKey('places.id'))
+    place = relationship("Place", backref=backref('images', order_by=id))
+
+    def __init__(self, filename, place):
+        self.id = str(uuid.uuid4())
+        self.filename = filename
+        self.place = place
 
 
 class Tag(Base):
@@ -54,12 +69,3 @@ class Tag(Base):
         self.id = str(uuid.uuid4())
         self.name = name
 
-
-class Image(Base, DictSerializable):
-    __tablename__ = 'images'
-    id = Column(Text, primary_key=True)
-    filename = Column(Text)
-
-    def __init__(self, filename):
-        self.id = str(uuid.uuid4())
-        self.filename = filename

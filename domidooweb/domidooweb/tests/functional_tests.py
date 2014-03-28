@@ -33,7 +33,7 @@ class FunctionalTests(unittest.TestCase):
 
     def test_home(self):
         with transaction.manager:
-            DBSession.add(Place('name-test', 'city', 'image'))
+            DBSession.add(Place('name-test', 'city'))
 
         res = self.testapp.get('/')
         res.status.should.be.equal('200 OK')
@@ -61,10 +61,10 @@ class FunctionalTests(unittest.TestCase):
         actual = DBSession.query(Place).filter_by(name='bilocale arredato').one()
         actual.name.should.be.equal('bilocale arredato')
         actual.city.should.be.equal('lomazzo')
-        actual.image.should.contain("example.jpg")
+        actual.images[0].filename.should.contain("example.jpg")
 
         upload_dir = '../../../../var/tests/images/'
-        file_path = os.path.join(here, upload_dir, actual.image)
+        file_path = os.path.join(here, upload_dir, actual.images[0].filename)
         os.path.isfile(file_path).should.be.true
 
 
@@ -81,7 +81,7 @@ class FunctionalTests(unittest.TestCase):
 
     def test_when_a_tag_is_added_to_a_place_it_is_appended_to_tags(self):
         with transaction.manager:
-            place = Place('foo-place', 'city', 'image')
+            place = Place('foo-place', 'city')
             DBSession.add(place)
             placeid = place.id
 
@@ -96,7 +96,7 @@ class FunctionalTests(unittest.TestCase):
             existing_tag = Tag(name = 'foo')
             DBSession.add(existing_tag)
 
-            place = Place('foo-place', 'city', 'image')
+            place = Place('foo-place', 'city')
             DBSession.add(place)
             placeid = place.id
             id = existing_tag.id
@@ -110,9 +110,9 @@ class FunctionalTests(unittest.TestCase):
 
     def test_a_json_list_of_places_can_be_retrieved(self):
         with transaction.manager:
-            DBSession.add(Place(id = 'place1', name = 'foo1', city = 'lomazzo', image = None))
-            DBSession.add(Place(id = 'place2', name = 'foo2', city = 'lomazzo', image = None))
-            DBSession.add(Place(id = 'place3', name = 'foo3', city = 'lomazzo', image = None))
+            DBSession.add(Place(id = 'place1', name = 'foo1', city = 'lomazzo'))
+            DBSession.add(Place(id = 'place2', name = 'foo2', city = 'lomazzo'))
+            DBSession.add(Place(id = 'place3', name = 'foo3', city = 'lomazzo'))
 
         res = self.testapp.get(url = '/admin/places')
 
@@ -127,7 +127,8 @@ class FunctionalTests(unittest.TestCase):
 
     def test_an_image_can_be_retrieved_by_id(self):
         with transaction.manager:
-            image = Image(filename = 'foo.png')
+            place = Place(name = "foo", city = "NY")
+            image = Image(filename = 'foo.png', place = place)
             DBSession.add(image)
             image_id = image.id
 
