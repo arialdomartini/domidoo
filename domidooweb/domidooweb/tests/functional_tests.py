@@ -58,7 +58,7 @@ class FunctionalTests(unittest.TestCase):
             upload_files = [("image", "example.jpg", "somecontent")]
         )
 
-        assert res.status == '302 Found'
+        res.status.should.be.equal('302 Found')
 
         actual = DBSession.query(Place).filter_by(name='bilocale arredato').one()
         actual.name.should.be.equal('bilocale arredato')

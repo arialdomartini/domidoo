@@ -30,7 +30,7 @@ class PlaceRepositoryTests(IntegrationTests):
         actual = sut.get_or_create_by_name('bar')
 
         assert actual != None
-        assert actual.name == 'bar'
+        actual.name.should.be.equal('bar')
 
 
     def test_all_tags_can_be_retrieved(self):
@@ -45,8 +45,8 @@ class PlaceRepositoryTests(IntegrationTests):
         actual = sut.get_all()
 
         names = [tag.name for tag in actual]
-        assert 'name1' in names
-        assert 'name2' in names
-        assert 'name3' in names
-        assert 'name4' in names
+        names.should.contain('name1')
+        names.should.contain('name2')
+        names.should.contain('name3')
+        names.should.contain('name4')
 

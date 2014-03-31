@@ -22,8 +22,8 @@ class PlaceRepositoryTests(IntegrationTests):
 
         actual = sut.get_first()
 
-        assert actual.name == 'name'
-        assert actual.city == 'city'
+        actual.name.should.be.equal('name')
+        actual.city.should.be.equal('city')
 
 
     def test_a_place_can_be_retrieved_from_the_db_by_by_id(self):
@@ -35,8 +35,8 @@ class PlaceRepositoryTests(IntegrationTests):
 
         actual = sut.get(placeid)
 
-        assert actual.name == 'name'
-        assert actual.city == 'city'
+        actual.name.should.be.equal('name')
+        actual.city.should.be.equal('city')
 
 
     def test_all_place_can_be_retrieved(self):
@@ -51,8 +51,8 @@ class PlaceRepositoryTests(IntegrationTests):
         actual = sut.get_all()
 
         names = [p.name for p in actual]
-        assert 'name1' in names
-        assert 'name2' in names
-        assert 'name3' in names
-        assert 'name4' in names
+        names.should.contain('name1')
+        names.should.contain('name2')
+        names.should.contain('name3')
+        names.should.contain('name4')
 
