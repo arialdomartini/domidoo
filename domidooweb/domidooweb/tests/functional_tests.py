@@ -81,7 +81,7 @@ class FunctionalTests(unittest.TestCase):
         actual.name.should.be.equal('bilocale')
 
 
-    def test_when_a_tag_is_added_to_a_place_it_is_appended_to_tags(self):
+    def test_a_new_tag_can_be_added_to_a_place(self):
         with transaction.manager:
             place = Place('foo-place', 'city')
             DBSession.add(place)
@@ -93,7 +93,7 @@ class FunctionalTests(unittest.TestCase):
         actual_place.tags[0].name.should.be.equal('foo')
 
 
-    def test_when_an_existing_tag_is_appended_to_a_place_the_existing_tag_is_used(self):
+    def test_an_existing_tag_can_be_added_to_a_place(self):
         with transaction.manager:
             existing_tag = Tag(name = 'foo')
             DBSession.add(existing_tag)
@@ -106,9 +106,24 @@ class FunctionalTests(unittest.TestCase):
         res = self.testapp.post(url = '/admin/tags/add', params = {'tag': 'foo', 'place': placeid})
 
         actual_place = DBSession.query(Place).filter_by(id=placeid).one()
-        actual_tag = actual_place.tags[0]
+        actual_place.tags[0].name.should.be.equal('foo')
 
-        actual_tag.id.should.be.equal(id)
+
+    def test_when_an_existing_tag_is_added_to_a_place_the_tag_is_not_duplicated(self):
+        with transaction.manager:
+            existing_tag = Tag(name = 'foo')
+            DBSession.add(existing_tag)
+
+            place = Place('foo-place', 'city')
+            DBSession.add(place)
+            placeid = place.id
+            id = existing_tag.id
+
+        res = self.testapp.post(url = '/admin/tags/add', params = {'tag': 'foo', 'place': placeid})
+
+        actual_place = DBSession.query(Place).filter_by(id=placeid).one()
+        actual_place.tags[0].id.should.be.equal(id)
+
 
     def test_a_json_list_of_places_can_be_retrieved(self):
         with transaction.manager:

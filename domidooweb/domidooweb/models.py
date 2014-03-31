@@ -39,7 +39,7 @@ class Place(Base, DictSerializable):
     city = Column(Text)
 
     tags = relationship('Tag', secondary=places_tags, backref='places')
-#    images = relationship("Image", order_by="Image.id", backref="place")
+
 
     def __init__(self, name, city, id = None):
         self.id = str(uuid.uuid4()) if id == None else id
