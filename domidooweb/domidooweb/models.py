@@ -60,7 +60,7 @@ class Image(Base, DictSerializable):
         self.place = place
 
 
-class Tag(Base):
+class Tag(Base, DictSerializable):
     __tablename__ = 'tags'
     id = Column(Text, primary_key=True)
     name = Column(Text)

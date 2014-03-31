@@ -1,6 +1,7 @@
 import unittest
 import transaction
 import os
+import sure
 from pyramid import testing
 
 from domidooweb.models import *
@@ -30,3 +31,22 @@ class PlaceRepositoryTests(IntegrationTests):
 
         assert actual != None
         assert actual.name == 'bar'
+
+
+    def test_all_tags_can_be_retrieved(self):
+
+        DBSession.add(Tag(name = 'name1'))
+        DBSession.add(Tag(name = 'name2'))
+        DBSession.add(Tag(name = 'name3'))
+        DBSession.add(Tag(name = 'name4'))
+
+        sut = TagRepository()
+
+        actual = sut.get_all()
+
+        names = [tag.name for tag in actual]
+        assert 'name1' in names
+        assert 'name2' in names
+        assert 'name3' in names
+        assert 'name4' in names
+

@@ -29,6 +29,11 @@ class TagRepository(object):
         except NoResultFound:
             return Tag(name)
 
+
+    def get_all(self):
+        return DBSession.query(Tag).all()
+
+
 class ImageRepository(object):
     def get(self, id):
         return DBSession.query(Image).filter(Image.id == id).one()

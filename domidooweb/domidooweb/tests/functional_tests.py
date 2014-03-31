@@ -1,8 +1,10 @@
 import unittest
 import os
 import json
-from domidooweb.models import DBSession
 import sure
+
+from domidooweb.models import DBSession
+
 
 from domidooweb.models import Place
 from domidooweb.models import Tag
@@ -120,9 +122,26 @@ class FunctionalTests(unittest.TestCase):
 
         len(actual).should.be.equal(3)
         ids = [p['id'] for p in actual]
-        ids.should.be.contain('place1')
-        ids.should.be.contain('place2')
-        ids.should.be.contain('place3')
+        ids.should.contain('place1')
+        ids.should.contain('place2')
+        ids.should.contain('place3')
+
+
+    def test_a_json_list_of_all_the_tags_can_be_retrieved(self):
+        with transaction.manager:
+            DBSession.add(Tag(name = 'foo'))
+            DBSession.add(Tag(name = 'bar'))
+            DBSession.add(Tag(name = 'foobar baz'))
+
+        res = self.testapp.get(url = '/admin/tags')
+
+        actual = res.json_body['tags']
+
+        len(actual).should.be.equal(3)
+        tag_names = [ tag['name'] for tag in actual ]
+        tag_names.should.contain('foo')
+        tag_names.should.contain('bar')
+        tag_names.should.contain('foobar baz')
 
 
     def test_an_image_can_be_retrieved_by_id(self):

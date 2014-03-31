@@ -101,8 +101,13 @@ def tags_add(request):
 
 @view_config(route_name='admin.places', renderer='json')
 def places(request):
-
     return {'places': [ p.to_json() for p in PlaceRepository().get_all() ] }
+
+
+@view_config(route_name='admin.tags', renderer='json')
+def tags(request):
+    return {'tags': [ tag.to_json() for tag in TagRepository().get_all() ] }
+
 
 @view_config(route_name='admin.images.get', renderer='json')
 def images_get(request):

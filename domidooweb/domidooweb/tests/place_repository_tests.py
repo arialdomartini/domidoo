@@ -1,6 +1,7 @@
 import unittest
 import transaction
 import os
+import sure
 from pyramid import testing
 
 from domidooweb.models import *
@@ -38,7 +39,7 @@ class PlaceRepositoryTests(IntegrationTests):
         assert actual.city == 'city'
 
 
-    def test_all_placec_can_be_retrieved(self):
+    def test_all_place_can_be_retrieved(self):
 
         DBSession.add(Place('name1', 'city'))
         DBSession.add(Place('name2', 'city'))
