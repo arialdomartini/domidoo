@@ -80,8 +80,8 @@ def tags_new(request):
     else:
         dat = request.POST
         name = dat.get('name')
-
-        tag = Tag(name=name)
+        
+        tag = TagRepository().get_or_create_by_name(name)
         DBSession.add(tag)
 
         return HTTPFound(location = request.route_url('admin.tags.new'))

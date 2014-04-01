@@ -125,6 +125,21 @@ class FunctionalTests(unittest.TestCase):
         actual_place.tags[0].id.should.be.equal(id)
 
 
+    def test_error_when_the_user_tries_to_add_an_already_existing_tag(self):
+        with transaction.manager:
+            DBSession.add(Tag(name = 'foo'))
+
+        res = self.testapp.post(url ='/admin/tags/new', 
+            params = {'name': 'foo'}
+        )
+
+        actual = DBSession.query(Tag).filter_by(name='foo').count()
+        actual.should.be.equal(1)
+
+
+
+
+
     def test_a_json_list_of_places_can_be_retrieved(self):
         with transaction.manager:
             DBSession.add(Place(id = 'place1', name = 'foo1', city = 'lomazzo'))
