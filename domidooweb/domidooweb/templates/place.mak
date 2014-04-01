@@ -3,6 +3,6 @@
 <%master:layout>
   <%def name="pagetitle()">Domidoo</%def>
 
-  ${def_place.show_place(place)}
+  ${def_place.show(place)}
 
 </%master:layout>

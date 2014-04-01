@@ -1,4 +1,4 @@
-<%def name="show_place(place)">
+<%def name="show(place)">
 
   <div class="col-md-12">
     ${place.name}

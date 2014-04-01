@@ -5,7 +5,7 @@
   <%def name="pagetitle()">Domidoo</%def>
 
   % for place in places:
-    ${def_place.show_place(place)}
+    ${def_place.show(place)}
   %endfor
 
 </%master:layout>
