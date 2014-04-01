@@ -1,7 +1,8 @@
 <%namespace name="master" file="master.mak"/>
+<%namespace name="def_place" file="def_place.mak"/>
 <%master:layout>
-<%def name="pagetitle()">Domidoo</%def>
+  <%def name="pagetitle()">Domidoo</%def>
 
-${master.show_place(place)}
+  ${def_place.show_place(place)}
 
 </%master:layout>

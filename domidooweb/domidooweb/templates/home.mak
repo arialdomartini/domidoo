@@ -1,9 +1,11 @@
 <%namespace name="master" file="master.mak"/>
-<%master:layout>
-<%def name="pagetitle()">Domidoo</%def>
+<%namespace name="def_place" file="def_place.mak"/>
 
-% for place in places:
-  ${master.show_place(place)}
-%endfor
+<%master:layout>
+  <%def name="pagetitle()">Domidoo</%def>
+
+  % for place in places:
+    ${def_place.show_place(place)}
+  %endfor
 
 </%master:layout>
