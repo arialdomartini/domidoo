@@ -45,7 +45,16 @@ class IntegrationTests(unittest.TestCase):
 
         len(places).should.be.equal(3)
 
-        
+
+    def test_show_a_single_place(self):
+        place_repository = Mock(PlaceRepository)
+        domidooweb.views.place_repository = place_repository
+        place = Place(name = 'foo', city = 'Milan', id = 'abda-78782')
+        place_repository.get.return_value = place
+        self.request.matchdict['id'] = 'abda-78782'
+        response = domidooweb.views.place(self.request)
+
+        response['place'].id.should.be.equal('abda-78782')
 
 
 

@@ -21,5 +21,8 @@ def home(request):
 def about(request):
     return {}
 
-
-
+@view_config(route_name='place', renderer='place.mak')
+def place(request):
+    id = request.matchdict['id']
+    place = place_repository.get(id)
+    return {'place': place}
