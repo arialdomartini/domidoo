@@ -3,18 +3,7 @@
 <%def name="pagetitle()">Domidoo</%def>
 
 % for place in places:
-  <div class="col-md-12">
-    ${place.name}
-  </div>
-  <div class="col-md-12">
-    % for image in place.images:
-       <image src="/images/${image.filename}" width="350px" />
-    % endfor
-  </div>
-
-  % for tag in place.tags:
-    ${tag.name}
-  % endfor
+  ${master.show_place(place)}
 %endfor
 
 </%master:layout>
