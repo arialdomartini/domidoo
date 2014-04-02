@@ -1,12 +1,5 @@
-import unittest
-import transaction
-import os
-import sure
-from pyramid import testing
-
-from domidooweb.allmodels import *
-from domidooweb.views import *
-from domidooweb.admin_views import *
+from domidooweb import DBSession
+from domidooweb.models.tag import Tag
 from integration_tests import IntegrationTests 
 
 from domidooweb.domain import TagRepository

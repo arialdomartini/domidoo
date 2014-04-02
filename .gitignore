@@ -1,5 +1,5 @@
 *.pyc
-
 *.sqlite
 *.egg-info
 *.log
+.idea

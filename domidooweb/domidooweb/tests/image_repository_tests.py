@@ -1,15 +1,10 @@
-import unittest
-import transaction
-import os
-from pyramid import testing
-
-from domidooweb.allmodels import *
-from domidooweb.views import *
+from domidooweb import DBSession
 from domidooweb.admin_views import *
+from domidooweb.models.image import Image
 from integration_tests import IntegrationTests 
 
 from domidooweb.domain import ImageRepository
-from domidooweb.allmodels import Image
+
 
 class ImageRepositoryTests(IntegrationTests):
 

@@ -1,20 +1,16 @@
-from pyramid.response import Response
-from pyramid.httpexceptions import HTTPFound
-
-from pyramid.view import view_config
 import uuid
 import os.path
-import json
-from sqlalchemy.exc import DBAPIError
 
-from domidooweb.allmodels import DBSession
-from domidooweb.allmodels import Place
-from domidooweb.allmodels import Tag
-from domidooweb.allmodels import Image
+from pyramid.httpexceptions import HTTPFound
+from pyramid.view import view_config
 
 from domain import PlaceRepository
 from domain import TagRepository
 from domain import ImageRepository
+from domidooweb.models.image import Image
+from domidooweb.models.place import Place
+from domidooweb.models.base import DBSession
+
 
 def save_uploaded_file(form_field, upload_dir):
     input_file = form_field.file

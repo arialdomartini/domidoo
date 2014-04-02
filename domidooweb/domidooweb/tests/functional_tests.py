@@ -1,15 +1,13 @@
 import unittest
 import os
-import json
-import sure
 
-from domidooweb.allmodels import DBSession
-
-
-from domidooweb.allmodels import Place
-from domidooweb.allmodels import Tag
-from domidooweb.allmodels import Image
 import transaction
+
+from domidooweb.models.image import Image
+from domidooweb.models.place import Place
+from domidooweb.models.tag import Tag
+from domidooweb.models.base import DBSession
+
 
 here = os.path.dirname(__file__)
 from paste.deploy.loadwsgi import appconfig

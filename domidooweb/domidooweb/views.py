@@ -1,12 +1,5 @@
-from pyramid.response import Response
 from pyramid.view import view_config
 
-from sqlalchemy.exc import DBAPIError
-
-from .allmodels import (
-    DBSession,
-    Place,
-    )
 from domain import PlaceRepository
 
 

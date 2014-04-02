@@ -1,14 +1,9 @@
-from pyramid.response import Response
-from pyramid.view import view_config
-
-from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm.exc import NoResultFound
 
-from domidooweb.allmodels import DBSession
-from domidooweb.allmodels import Place
-from domidooweb.allmodels import Tag
-from domidooweb.allmodels import Image
-
+from domidooweb.models.base import DBSession
+from domidooweb.models.image import Image
+from domidooweb.models.place import Place
+from domidooweb.models.tag import Tag
 
 
 class PlaceRepository(object):

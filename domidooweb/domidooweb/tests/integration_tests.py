@@ -1,13 +1,11 @@
 import unittest
-import transaction
-import os
-from pyramid import testing
-import sure
 
-from domidooweb.allmodels import *
+from pyramid import testing
+from mock import Mock
+
+from domidooweb.models.base import *
 import domidooweb.views
 from domidooweb.admin_views import *
-from mock import Mock
 
 
 dburl = 'sqlite://'
