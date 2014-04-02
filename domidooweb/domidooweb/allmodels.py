@@ -13,7 +13,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.orm import backref
 
 import uuid
-
+from dict_serializable import DictSerializable
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
@@ -23,14 +23,6 @@ places_tags = Table('places_tags', Base.metadata,
     Column('place_id', Integer, ForeignKey('places.id')),
     Column('tag_id', Integer, ForeignKey('tags.id'))
 )
-
-from collections import OrderedDict
-class DictSerializable(object):
-    def to_json(self):
-        result = OrderedDict()
-        for key in self.__mapper__.c.keys():
-            result[key] = getattr(self, key)
-        return result
 
 class Place(Base, DictSerializable):
     __tablename__ = 'places'
