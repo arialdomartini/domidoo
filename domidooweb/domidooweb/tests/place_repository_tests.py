@@ -4,7 +4,7 @@ import os
 import sure
 from pyramid import testing
 
-from domidooweb.models import *
+from domidooweb.allmodels import *
 from domidooweb.views import *
 from domidooweb.admin_views import *
 from integration_tests import IntegrationTests 

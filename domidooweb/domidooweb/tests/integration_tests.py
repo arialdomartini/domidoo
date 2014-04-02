@@ -4,7 +4,7 @@ import os
 from pyramid import testing
 import sure
 
-from domidooweb.models import *
+from domidooweb.allmodels import *
 import domidooweb.views
 from domidooweb.admin_views import *
 from mock import Mock

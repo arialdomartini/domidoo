@@ -4,10 +4,10 @@ from pyramid.view import view_config
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm.exc import NoResultFound
 
-from domidooweb.models import DBSession
-from domidooweb.models import Place
-from domidooweb.models import Tag
-from domidooweb.models import Image
+from domidooweb.allmodels import DBSession
+from domidooweb.allmodels import Place
+from domidooweb.allmodels import Tag
+from domidooweb.allmodels import Image
 
 
 

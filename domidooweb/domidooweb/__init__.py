@@ -2,7 +2,7 @@ from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
 from pyramid.paster import setup_logging
 
-from .models import (
+from .allmodels import (
     DBSession,
     Base,
     )

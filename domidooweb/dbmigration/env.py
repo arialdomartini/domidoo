@@ -13,8 +13,8 @@ fileConfig(config.config_file_name)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-from domidooweb import models
-target_metadata = models.Base.metadata
+from domidooweb import allmodels
+target_metadata = allmodels.Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

@@ -3,12 +3,12 @@ import os
 import json
 import sure
 
-from domidooweb.models import DBSession
+from domidooweb.allmodels import DBSession
 
 
-from domidooweb.models import Place
-from domidooweb.models import Tag
-from domidooweb.models import Image
+from domidooweb.allmodels import Place
+from domidooweb.allmodels import Tag
+from domidooweb.allmodels import Image
 import transaction
 
 here = os.path.dirname(__file__)

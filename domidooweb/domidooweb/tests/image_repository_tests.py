@@ -3,13 +3,13 @@ import transaction
 import os
 from pyramid import testing
 
-from domidooweb.models import *
+from domidooweb.allmodels import *
 from domidooweb.views import *
 from domidooweb.admin_views import *
 from integration_tests import IntegrationTests 
 
 from domidooweb.domain import ImageRepository
-from domidooweb.models import Image
+from domidooweb.allmodels import Image
 
 class ImageRepositoryTests(IntegrationTests):
 
