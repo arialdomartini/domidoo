@@ -3,12 +3,13 @@ import os.path
 
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
-from domidooweb.domain import TagRepository, ImageRepository
+from domidooweb.domain import ImageRepository
 
 from domidooweb.models.image import Image
 from domidooweb.models.place import Place
 from domidooweb.models.base import DBSession
 from domidooweb.models.place_repository import PlaceRepository
+from domidooweb.models.tag_repository import TagRepository
 
 
 def save_uploaded_file(form_field, upload_dir):

@@ -1,8 +1,8 @@
 from domidooweb import DBSession
 from domidooweb.models.tag import Tag
-from integration_tests import IntegrationTests 
+from domidooweb.models.tag_repository import TagRepository
+from integration_tests import IntegrationTests
 
-from domidooweb.domain import TagRepository
 
 class PlaceRepositoryTests(IntegrationTests):
 
