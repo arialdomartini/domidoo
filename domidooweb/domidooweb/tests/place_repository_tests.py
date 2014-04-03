@@ -1,8 +1,7 @@
 from domidooweb.models.base import DBSession
 from domidooweb.models.place import Place
-from integration_tests import IntegrationTests 
-
-from domidooweb.domain import PlaceRepository
+from domidooweb.models.place_repository import PlaceRepository
+from integration_tests import IntegrationTests
 
 dburl = 'sqlite://'
 class PlaceRepositoryTests(IntegrationTests):

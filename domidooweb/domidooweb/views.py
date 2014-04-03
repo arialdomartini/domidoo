@@ -1,6 +1,6 @@
 from pyramid.view import view_config
 
-from domain import PlaceRepository
+from domidooweb.models.place_repository import PlaceRepository
 
 
 place_repository = PlaceRepository()
