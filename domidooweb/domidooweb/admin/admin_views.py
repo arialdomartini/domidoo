@@ -3,10 +3,8 @@ import os.path
 
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
+from domidooweb.domain import PlaceRepository, TagRepository, ImageRepository
 
-from domain import PlaceRepository
-from domain import TagRepository
-from domain import ImageRepository
 from domidooweb.models.image import Image
 from domidooweb.models.place import Place
 from domidooweb.models.base import DBSession

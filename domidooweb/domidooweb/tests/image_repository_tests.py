@@ -1,5 +1,4 @@
-from domidooweb import DBSession
-from domidooweb.admin_views import *
+from domidooweb.admin.admin_views import *
 from domidooweb.models.image import Image
 from integration_tests import IntegrationTests 
 

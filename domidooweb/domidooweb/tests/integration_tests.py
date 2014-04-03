@@ -5,7 +5,7 @@ from mock import Mock
 
 from domidooweb.models.base import *
 import domidooweb.views
-from domidooweb.admin_views import *
+from domidooweb.admin.admin_views import *
 
 
 dburl = 'sqlite://'
