@@ -1,7 +1,11 @@
-from domidooweb.admin.admin_views import *
+from domidooweb import DBSession
 from domidooweb.models.image import Image
 from domidooweb.models.image_repository import ImageRepository
-from integration_tests import IntegrationTests
+from domidooweb.models.place import Place
+from domidooweb.tests.integration_tests import IntegrationTests
+import sure
+
+__author__ = 'arialdomartini'
 
 
 class ImageRepositoryTests(IntegrationTests):

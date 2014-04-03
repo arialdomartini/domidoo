@@ -1,5 +1,5 @@
 import unittest
-
+import sure
 from pyramid import testing
 from mock import Mock
 

@@ -1,7 +1,9 @@
 from domidooweb import DBSession
 from domidooweb.models.tag import Tag
 from domidooweb.models.tag_repository import TagRepository
-from integration_tests import IntegrationTests
+from domidooweb.tests.integration_tests import IntegrationTests
+
+__author__ = 'arialdomartini'
 
 
 class PlaceRepositoryTests(IntegrationTests):
@@ -42,4 +44,3 @@ class PlaceRepositoryTests(IntegrationTests):
         names.should.contain('name2')
         names.should.contain('name3')
         names.should.contain('name4')
-

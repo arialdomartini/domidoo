@@ -1,10 +1,10 @@
 import unittest
 import sure
-import json
-
 from domidooweb.models.image import Image
 from domidooweb.models.place import Place
 from domidooweb.models.tag import Tag
+
+__author__ = 'arialdomartini'
 
 
 class ModelsTests(unittest.TestCase):

@@ -1,9 +1,12 @@
-from domidooweb.models.base import DBSession
+import sure
+from domidooweb import DBSession
 from domidooweb.models.place import Place
 from domidooweb.models.place_repository import PlaceRepository
-from integration_tests import IntegrationTests
+from domidooweb.tests.integration_tests import IntegrationTests
 
-dburl = 'sqlite://'
+__author__ = 'arialdomartini'
+
+
 class PlaceRepositoryTests(IntegrationTests):
 
     def test_a_place_can_be_retrieved_from_the_db(self):
@@ -47,4 +50,3 @@ class PlaceRepositoryTests(IntegrationTests):
         names.should.contain('name2')
         names.should.contain('name3')
         names.should.contain('name4')
-
