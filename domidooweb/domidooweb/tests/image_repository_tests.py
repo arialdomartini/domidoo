@@ -1,8 +1,7 @@
 from domidooweb.admin.admin_views import *
 from domidooweb.models.image import Image
-from integration_tests import IntegrationTests 
-
-from domidooweb.domain import ImageRepository
+from domidooweb.models.image_repository import ImageRepository
+from integration_tests import IntegrationTests
 
 
 class ImageRepositoryTests(IntegrationTests):

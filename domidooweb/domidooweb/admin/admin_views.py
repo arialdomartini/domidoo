@@ -3,9 +3,9 @@ import os.path
 
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
-from domidooweb.domain import ImageRepository
 
 from domidooweb.models.image import Image
+from domidooweb.models.image_repository import ImageRepository
 from domidooweb.models.place import Place
 from domidooweb.models.base import DBSession
 from domidooweb.models.place_repository import PlaceRepository
